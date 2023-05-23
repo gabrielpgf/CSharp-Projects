@@ -2,25 +2,28 @@
     ViewData["Title"] = "Home Page";
 }
 
-<!DOCTYPE html>
-<html lang='en'>
-<head>
-    <meta charset='utf-8' />
-    
-    <script>
+<script>
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth'
-            });
-            calendar.render();
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
         });
+        calendar.render();
+    });
 
-    </script>
-</head>
-<body>
-    <h1>Bem vindo ao App de Calendário!</h1>
+</script>
+
+<div class="text-center">
+    <h1 class="display-4">Bem vindo ao App de Calendário!</h1>
     <div id='calendar'></div>
-</body>
-</html>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <a href="/Event"><h3>Events</h3></a>
+    </div>
+    <div class="col-md-6">
+        <a href="/Location"><h3>Locations</h3></a>
+    </div>
+</div>

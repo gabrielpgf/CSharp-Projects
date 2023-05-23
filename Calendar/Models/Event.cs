@@ -17,23 +17,21 @@ namespace Calendar.Models
 
         public Event() { }
         public Event(IFormCollection form, Location location) 
-        {
-            Id = int.Parse(form["Id"]);
-            Name = form["Name"];
-            Description = form["Description"];
-            StartTime = DateTime.Parse(form["StartTime"]);
-            EndTime = DateTime.Parse(form["EndTime"]);
+        {  
+            Name = form["Event.Name"].ToString();
+            Description = form["Event.Description"].ToString();
+            StartTime = DateTime.Parse(form["Event.StartTime"].ToString());
+            EndTime = DateTime.Parse(form["Event.EndTime"].ToString());
             Location = location;
         }
 
 
         public void UpdateEvent(IFormCollection form, Location location)
         {
-            Id = int.Parse(form["Id"]);
-            Name = form["Name"];
-            Description = form["Description"];
-            StartTime = DateTime.Parse(form["StartTime"]);
-            EndTime = DateTime.Parse(form["EndTime"]);
+            Name = form["Event.Name"].ToString();
+            Description = form["Event.Description"].ToString();
+            StartTime = DateTime.Parse(form["Event.StartTime"].ToString());
+            EndTime = DateTime.Parse(form["Event.EndTime"].ToString());
             Location = location;
         }
     }

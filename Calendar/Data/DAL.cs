@@ -26,14 +26,15 @@ namespace Calendar.Data
 
         public void CreateEvent(IFormCollection form)
         {
-            var newEvent = new Event(form, _context.Locations.FirstOrDefault(x => x.Name == form["Location"]));
-            _context.Add(newEvent);
+            var locName = form["Location"].ToString();
+            var newEvent = new Event(form, _context.Locations.FirstOrDefault(x => x.Name == locName));
+            _context.Events.Add(newEvent);
             _context.SaveChanges();
         }
 
         public void CreateLocation(Location location)
         {
-            _context.Add(location);
+            _context.Locations.Add(location);
             _context.SaveChanges();
         }
 
@@ -42,7 +43,7 @@ namespace Calendar.Data
             var myEvent = _context.Events.Find(id);
             if (myEvent != null)
             {
-                _context.Remove(myEvent);
+                _context.Events.Remove(myEvent);
                 _context.SaveChanges();
             }
         }
@@ -74,15 +75,9 @@ namespace Calendar.Data
 
         public void UpdateEvent(IFormCollection form)
         {
-            var myEvent = _context.Events.FirstOrDefault(p => p.Id == form["Id"]);
-            //CÓDIGO A SER TESTADO DEPOIS
-            /*if (myEvent != null)
-            {
-                myEvent = new Event(form, _context.Locations.FirstOrDefault(x => x.Name == form["Location"]));
-                _context.Update(myEvent);
-                _context.SaveChanges();
-            }*/
-            var location = _context.Locations.FirstOrDefault(p => p.Name == form["Location"]);
+            var myEvent = _context.Events.FirstOrDefault(p => p.Id == int.Parse(form["Event.Id"])); 
+            var locName = form["Location"].ToString();
+            var location = _context.Locations.FirstOrDefault(p => p.Name == locName);
             myEvent.UpdateEvent(form, location);
             _context.Entry(myEvent).State = EntityState.Modified;
             _context.SaveChanges();

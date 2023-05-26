@@ -27,7 +27,8 @@ namespace Calendar.Data
         public void CreateEvent(IFormCollection form)
         {
             var locName = form["Location"].ToString();
-            var newEvent = new Event(form, _context.Locations.FirstOrDefault(x => x.Name == locName));
+            var user = _context.Users.FirstOrDefault(x => x.Id == form["UserId"].ToString());
+            var newEvent = new Event(form, _context.Locations.FirstOrDefault(x => x.Name == locName), user);
             _context.Events.Add(newEvent);
             _context.SaveChanges();
         }
@@ -77,8 +78,9 @@ namespace Calendar.Data
         {
             var myEvent = _context.Events.FirstOrDefault(p => p.Id == int.Parse(form["Event.Id"])); 
             var locName = form["Location"].ToString();
+            var user = _context.Users.FirstOrDefault(p => p.Id == form["UserId"].ToString());
             var location = _context.Locations.FirstOrDefault(p => p.Name == locName);
-            myEvent.UpdateEvent(form, location);
+            myEvent.UpdateEvent(form, location, user);
             _context.Entry(myEvent).State = EntityState.Modified;
             _context.SaveChanges();
         }

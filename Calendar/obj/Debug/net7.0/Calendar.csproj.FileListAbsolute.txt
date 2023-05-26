@@ -283,3 +283,5 @@ C:\Projects\CSharp-Projects\Calendar\bin\Debug\net7.0\runtimes\unix\lib\net6.0\S
 C:\Projects\CSharp-Projects\Calendar\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Projects\CSharp-Projects\Calendar\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Projects\CSharp-Projects\Calendar\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Projects\CSharp-Projects\Calendar\bin\Debug\net7.0\Castle.Core.dll
+C:\Projects\CSharp-Projects\Calendar\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Proxies.dll

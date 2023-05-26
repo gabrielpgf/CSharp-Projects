@@ -16,23 +16,26 @@ namespace Calendar.Models
         public virtual ApplicationUser User { get; set; }
 
         public Event() { }
-        public Event(IFormCollection form, Location location) 
+
+        public Event(IFormCollection form, Location location, ApplicationUser user)
         {  
             Name = form["Event.Name"].ToString();
             Description = form["Event.Description"].ToString();
             StartTime = DateTime.Parse(form["Event.StartTime"].ToString());
             EndTime = DateTime.Parse(form["Event.EndTime"].ToString());
             Location = location;
+            User = user;
         }
 
 
-        public void UpdateEvent(IFormCollection form, Location location)
+        public void UpdateEvent(IFormCollection form, Location location, ApplicationUser user)
         {
             Name = form["Event.Name"].ToString();
             Description = form["Event.Description"].ToString();
             StartTime = DateTime.Parse(form["Event.StartTime"].ToString());
             EndTime = DateTime.Parse(form["Event.EndTime"].ToString());
             Location = location;
+            User = user;
         }
     }
 }

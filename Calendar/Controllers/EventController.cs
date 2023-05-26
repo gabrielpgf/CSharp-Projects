@@ -8,16 +8,23 @@ using Microsoft.EntityFrameworkCore;
 using Calendar.Data;
 using Calendar.Models;
 using Calendar.Models.ViewModels;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Calendar.Controllers.ActionFilters;
 
 namespace Calendar.Controllers
 {
+    [Authorize]
     public class EventController : Controller
     {
         private readonly IDAL _idal;
+        private readonly UserManager<ApplicationUser> _usermanager;
 
-        public EventController(IDAL idal)
+        public EventController(IDAL idal, UserManager<ApplicationUser> usermanager)
         {
             _idal = idal;
+            _usermanager = usermanager;
         }
 
         // GET: Event
@@ -25,7 +32,7 @@ namespace Calendar.Controllers
         {
             if (TempData["Alert"] != null)
                 ViewData["Alert"] = TempData["Alert"];
-            return View(_idal.GetEvents());
+            return View(_idal.GetMyEvents(User.FindFirstValue(ClaimTypes.NameIdentifier)));
         }
 
         // GET: Event/Details/5
@@ -49,7 +56,7 @@ namespace Calendar.Controllers
         // GET: Event/Create
         public IActionResult Create()
         {
-            return View(new EventViewModel(_idal.GetLocations()));
+            return View(new EventViewModel(_idal.GetLocations(), User.FindFirstValue(ClaimTypes.NameIdentifier)));
         }
 
         // POST: Event/Create
@@ -74,6 +81,7 @@ namespace Calendar.Controllers
         }
 
         // GET: Event/Edit/5
+        [UserAccessOnly]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,7 +94,7 @@ namespace Calendar.Controllers
             {
                 return NotFound();
             }
-            var vm = new EventViewModel(@event, _idal.GetLocations());
+            var vm = new EventViewModel(@event, _idal.GetLocations(), User.FindFirstValue(ClaimTypes.NameIdentifier));
             return View(vm);
         }
 
@@ -106,7 +114,7 @@ namespace Calendar.Controllers
             catch (Exception ex)
             {
                 TempData["Alert"] = "An error occurred: " + ex.Message;
-                var vm = new EventViewModel(_idal.GetEvent(id), _idal.GetLocations());
+                var vm = new EventViewModel(_idal.GetEvent(id), _idal.GetLocations(), User.FindFirstValue(ClaimTypes.NameIdentifier));
                 return View(vm);
             }
         }
